@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Toko online</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    </head>
+<body>
+    <div class="medsos">
+        <div class="container">
+            <ul>
+                <li><a href="https://www.facebook.com/said.mafazal?mibextid=ZbWKwL"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="https://youtube.com/@saidmafazal4874"><i class="fa-brands fa-youtube"></i></a></li>
+                <li><a href="https://instagram.com/saidmafazal?igshid=NDk5N2NlZjQ="><i class="fa-brands fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">KEDE ACEH STORE</a></h1>
+            <ul>
+                <li class="active"><a href="index.html">HOME</a></li>
+                <li><a href="order.html">ORDER</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </div>
+    </header>
+    <section class="services">
+        <div class="container">
+            <h3>ORDER PRODUCTS</h3>
+        </div>
+    </section>
+    <div class="container">
+        <h2 class="title">Form Pemesanan</h2>
+        <form class="form">
+            <table>
+                <tr>
+                    <td class="form-label">
+                        <label for="nama">Nama Lengkap</label>
+                    </td>
+                    <td>
+                        <input type="text" id="nama" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="nomor_identitas">Nomor Identitas</label>
+                    </td>
+                    <td>
+                        <input type="text" id="nomor_identitas" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="nomor_hp">Nomor HP</label>
+                    </td>
+                    <td>
+                        <input type="text" id="nomor_hp" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="menu_makanan">Menu Makanan</label>
+                    </td>
+                    <td>
+                        <select id="menu_makanan" class="form-input">
+                            <option value="10000">Bakpia Khas Sabang - Rp 10.000</option>
+                            <option value="10000">Dodol Khas Aceh - Rp 10.000</option>
+                            <option value="10000">Timphan - Rp 10.000</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="tanggal">Tanggal Pemesan</label>
+                    </td>
+                    <td>
+                        <input type="date" id="tanggal" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label for="pemesanan">Jumlah pemesanan</label>
+                    </td>
+                    <td>
+                        <input type="number" id="pemesanan" min="0" class="form-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label>Harga Makanan</label>
+                    </td>
+                    <td>
+                        <div id="harga_makanan">Rp 0</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-label">
+                        <label>Total Bayar</label>
+                    </td>
+                    <td>
+                        <div id="harga_bayar">Rp 0</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="btn-wrapper">
+                <button type="button" class="btn-pesan" id="btn-pesan">Pesan Makanan</button>
+            </div>
+        </form>
+
+        <div id="hasil">
+            
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        
+<script>
+    let data = []
+    data['nama'] = ''
+    data['nomor_identitas'] = ''
+    data['nomor_hp'] = ''
+    data['menu_makanan'] = ''
+    data['harga_makanan'] = $('#menu_makanan').val()
+    data['tanggal'] = ''
+    data['jumlah_pemesanan'] = 0
+    data['harga_bayar'] = 0
+
+    $('#harga_makanan').text(`Rp ${data['harga_makanan']}`)
+
+    $('#menu_makanan').on('change', function(){
+        data['harga_makanan'] = $('#menu_makanan').val()
+        data['menu_makanan'] = $('#menu_makanan option:selected').text().split(' - ')[0]
+        $('#harga_makanan').text(`Rp ${data['harga_makanan']}`)
+    })
+
+    $('#pemesanan').on('input', function () {
+        data['jumlah_pemesanan'] = $('#pemesanan').val()
+        data['harga_bayar'] = data['jumlah_pemesanan'] * data['harga_makanan']
+        $('#harga_bayar').text(`Rp ${data['harga_bayar']}`)
+    })
+
+    $('#btn-pesan').on('click', function(){
+        data['nama'] = $('#nama').val()
+        data['nomor_identitas'] = $('#nomor_identitas').val()
+        data['nomor_hp'] = $('#nomor_hp').val()
+        data['jumlah_pemesanan'] = $('#pemesanan').val()
+
+        $('#hasil').html(`
+        <table>
+                <tr>
+                    <td>Nama Pemesan</td>
+                    <td>: ${data['nama']}</td>
+                </tr>
+                <tr>
+                    <td>Nomor Identitas</td>
+                    <td>: ${data['nomor_identitas']}</td>
+                </tr>
+                <tr>
+                    <td>No HP</td>
+                    <td>: ${data['nomor_hp']}</td>
+                </tr>
+                <tr>
+                    <td>Menu Makanan</td>
+                    <td>: ${data['menu_makanan']}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah Pemesanan</td>
+                    <td>: ${data['jumlah_pemesanan']}</td>
+                </tr>
+                <tr>
+                    <td>Harga Makanan</td>
+                    <td>: Rp ${data['harga_makanan']}</td>
+                </tr>
+                <tr>
+                    <td>Total Bayar</td>
+                    <td>: Rp ${data['harga_bayar']}</td>
+                </tr>
+            </table>
+        `)
+    })
+</script>
+    <footer>
+        <div class="container">
+            <small> Copyright &copy; 2022 - Said Mafazal, All RIght Reserved</small>
+        </div>
+    </footer>
+</body>
+</html>
